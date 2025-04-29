@@ -1,0 +1,18 @@
+{% extends 'ProyectApp/base.html' %}
+{% load static %}
+
+{% block content %}
+   <div class="container d-flex justify-content-center align-items-center vh-100 mt-3 mb-3">
+        <div class="card p-4 shadow-lg" style="width: 400px;">
+            <h2 class="text-center mb-4">Formulario</h2>
+              {% if 'valido' in request.GET %}
+                 <p>Informacion enviada correctamente gracias!!</p>
+               {% endif %}
+            <form method="POST">{% csrf_token %}
+                {{ formulario.as_p }}
+                <button type="submit" class="btn btn-primary w-100 mt-3">Enviar</button>
+            </form>
+        </div>
+    </div> 
+    
+{% endblock %}

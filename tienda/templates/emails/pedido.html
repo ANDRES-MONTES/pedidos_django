@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmación de Pedido</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .header {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+        .order-info {
+            background-color: #f1f3f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .table th, .table td {
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            text-align: left;
+        }
+        .table th {
+            background-color: #007bff;
+            color: white;
+        }
+        .total {
+            text-align: right;
+            font-weight: bold;
+            color: #007bff;
+            font-size: 1.2em;
+        }
+        .footer {
+            text-align: center;
+            color: #6c757d;
+            font-size: 0.8em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="header">¡Gracias por tu compra, {{ user }}!</h2>
+
+        <div class="order-info">
+            <p><strong>Número de Pedido:</strong> {{ pedido.id }}</p>
+            <p><strong>Fecha:</strong> {{ pedido.created_at }}</p>
+        </div>
+
+        <h3>Detalles del Pedido</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Artículo</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unitario</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for articulo in articulos %}
+                <tr>
+                    <td>{{ articulo.producto_id.name }}</td>
+                    <td>{{ articulo.cantidad }}</td>
+                    <td>${{ articulo.producto_id.precio }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <p class="total">Total: ${{ pedido.total }}</p>
+
+        <p>Si tienes alguna pregunta, no dudes en contactarnos.</p>
+
+        <div class="footer">
+            <p>&copy; {{ pedido.fecha|date:"Y" }} Tienda Online. Todos los derechos reservados.</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<table class='table table-bordered' style="color:white;">
+    <thead>
+        <tr>
+            <th colspan="3" class="text-center"> Carro compras</th>
+        </tr>
+        <tr>
+            <th>producto</th>
+            <th>cantidad</th>
+            <th>precio</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if request.session.carro.items %}
+            {% for i, valor in request.session.carro.items %}
+                <tr>
+                    <td>{{ valor.nombre }}</td>
+                    <td class='text-center'>{{ valor.cantidad }}</td>
+                    <td class='text-center'>
+                        <a href="{% url 'carro:agregar' valor.producto_id %}" class="btn btn-sm btn-success ">+</a>
+                        <a href="{% url 'carro:restar' valor.producto_id %}" class="btn btn-sm btn-danger ">-</a>
+                        {{ valor.precio }}
+                    </td>
+                </tr>
+            {% endfor %}
+
+        {% else %}
+            <tr>
+                <td colspan="3" class="alert alert-danger text-center">sin productos</td>
+            </tr>
+        {% endif %}
+            
+        <tr>
+            <th colspan="2">Total: $ {{ TOTAL_CARRO }}</th>
+            <td>
+                <a href="{% url 'carro:limpiar' %}" class="btn btn-sm btn-danger">limpiar</a>
+            </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        {% if request.session.carro.items %}
+            <tr>
+                <th colspan='3' class="text-center"> 
+                    <a href="{%url 'procesar'%}" class="btn btn-primary w-100 btn-lg rounded">COMPRAR</a>
+                </th>
+            </tr>
+        {% endif %}
+    </tfoot>
+
+
+    
+</table>
